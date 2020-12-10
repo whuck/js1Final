@@ -16,7 +16,7 @@ div.p0 {
     height: 340px;
     width: 220px;
 }
-#p0Hand {
+#p0pile {
     /*border-style: solid;*/
     /*border-width:3px;*/
     position: absolute;
@@ -25,7 +25,27 @@ div.p0 {
     height: 100px;
     width: 230px;
 }
-#p1Hand {
+#p0hand {
+    /*border-style: solid;*/
+    /*border-width:3px;*/
+    position: absolute;
+    top: 170px;
+    left: 0px;
+    height: 100px;
+    width: 230px;
+
+}
+#p1hand {
+
+    /*border-style: solid;*/
+    /*border-width:3px;*/
+    position: absolute;
+    bottom: 175px;
+    left: 0px;
+    height: 100px;
+    width: 230px;
+}
+#p1pile {
     /*border-style: solid;*/
     /*border-width:3px;*/
     position: absolute;
@@ -46,7 +66,7 @@ div.p1 {
 #passBtn {
     position: absolute;
     left: 35%;
-    top: 50%;
+    top: 70%;
 }
 
 .top {
