@@ -14,29 +14,58 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-<script src="code.js"></script>
+<!--<script src="code.js"></script>-->
+<script src="skeleton3.js"></script>
 
 <div class="container">
     <div class="cardTable">
         <div class="p0" id="p0">
-            <div class="hand" id="p0Hand"></div>
-            <input type="button" id="passBtn" value="Pass" style="display: none">
-            <input type="button" id="pickBtn" value="Pick it Up" style="display: none">
-            <span id="discard" style="display: none">Pick a card to discard.</span>
-        </div>
-        <div class="p1" id="p1"><div class="hand" id="p1Hand"></div></div>
-        <div class="p2" id="p2"><div class="hand" id="p2Hand"></div></div>
-        <div class="p3" id="p3"><div class="hand" id="p3Hand"></div></div>
-        <div class="trick">
+            <div class="hand" id="p0Hand">
+                <div class="pile0" id=" p0pile0">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile1" id="p0pile1">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile2" id="p0pile2">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile3" id="p0pile3">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+            </div>
             <div class="p0trick" id="p0trick"></div>
-            <div class="p1trick" id="p1trick"></div>
-            <div class="p2trick" id="p2trick"></div>
-            <div class="p3trick" id="p3trick"></div>
+            <div class="p0dealer" id="p0dealer" >Dealer&nbsp;&nbsp;</div>
+            <input type="button" id="passBtn" value="Pass" ">
+
         </div>
-        <div class="p0dealer" id="p0dealer" style="display: none">Dealer&nbsp;&nbsp;</div>
-        <div class="p1dealer" id="p1dealer" style="display: none">Dealer&nbsp;&nbsp;</div>
-        <div class="p2dealer" id="p2dealer" style="display: none">Dealer&nbsp;&nbsp;</div>
-        <div class="p3dealer" id="p3dealer" style="display: none">Dealer&nbsp;&nbsp;</div>
+        <div class="p1" id="p1">
+            <div class="hand" id="p1Hand">
+                <div class="pile0" id="p1pile0">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile1" id="p1pile1">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile2" id="p1pile2">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+                <div class="pile3" id="p1pile3">
+                    <div class="top"><img src="cards/c10.png"></div>
+                    <div class="bottom"><img src="cards/d0.png"></div>
+                </div>
+            </div>
+            </div>
+            <div class="p1trick" id="p1trick"></div>
+            <div class="p1dealer" id="p1dealer" >Dealer&nbsp;&nbsp;</div>
+        </div>
     <div class="scoreBoard" id="scoreBoard">
         <div class="sbHalf" id="team1"></div>
         <div class="sbHalf" id="team2"></div>

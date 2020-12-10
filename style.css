@@ -1,90 +1,129 @@
 div{padding:1px;}
 img{border-radius: 10px;}
 div.cardTable {
-    width:1000px;
-    height:800px;
+    width:700px;
+    height:700px;
     border-style: solid;
     border-width:3px;
     position: fixed;
 }
 div.p0 {
-    /*border-style: solid;
-    border-width:3px;*/
+    /*border-style: solid;*/
+    /*border-width:3px;*/
     position: absolute;
     bottom: 0;
-    left: 390px;
-    height: 150px;
+    left: 240px;
+    height: 340px;
     width: 220px;
+}
+#p0Hand {
+    /*border-style: solid;*/
+    /*border-width:3px;*/
+    position: absolute;
+    top: 75px;
+    left: 0px;
+    height: 100px;
+    width: 230px;
+}
+#p1Hand {
+    /*border-style: solid;*/
+    /*border-width:3px;*/
+    position: absolute;
+    bottom: 75px;
+    left: 0px;
+    height: 100px;
+    width: 230px;
 }
 div.p1 {
-    /*border-style: solid;
-    border-width:3px;*/
-    position: absolute;
-    top: 325px;
-    left: 0;
-    height: 150px;
-    width: 220px;
-}
-div.p2 {
-    /*border-style: solid;
-    border-width:3px;*/
+    /*border-style: solid;*/
+    /*border-width:3px;*/
     position: absolute;
     top: 0;
-    left: 390px;
-    height: 150px;
+    left: 240px;
+    height: 340px;
     width: 220px;
 }
-div.p3 {
-    /*border-style: solid;
-    border-width:3px;*/
+#passBtn {
     position: absolute;
-    top: 325px;
-    right: 0;
-    height: 150px;
-    width: 220px;
+    left: 40%;
+    top: 60%;
 }
-div.trick {
+
+.top {
     /*border-style: solid;*/
     /*border-width:2px;*/
     position: absolute;
-    top: 285px;
-    right: 385px;
-    height: 230px;
-    width: 230px;
+    display:inline-block;
+    top:0px;
+    left:0px;
+    width:50px;
+    height:70px;
+    z-index:10;
+}
+.bottom {
+    /*border-style: solid;*/
+    /*border-width:2px;*/
+    position: absolute;
+    display:inline-block;
+    top:8px;
+    left:8px;
+    width:50px;
+    height:70px;
+}div.pile0 {
+     /*border-style: solid;*/
+     /*border-width:2px;*/
+     position: absolute;
+     display:inline-block;
+     top:0px;
+     left:0px;
+     width:50px;
+     height:70px;
+ }
+div.pile1 {
+    /*border-style: solid;*/
+    /*border-width:2px;*/
+    position: absolute;
+    display:inline-block;
+    top:0px;
+    width:50px;
+    left:50px;
+    height:70px;
+}
+div.pile2 {
+    /*border-style: solid;*/
+    /*border-width:2px;*/
+    position: absolute;
+    display:inline-block;
+    top:0px;
+    width:50px;
+    left:100px;
+    height:70px;
+}
+div.pile3 {
+    /*border-style: solid;*/
+    /*border-width:2px;*/
+    position: absolute;
+    display:inline-block;
+    top:0px;
+    width:50px;
+    left:150px;
+    height:70px;
 }
 div.p0dealer {
-    /*border-style: solid;
-    border-width:2px;*/
+    /*border-style: solid;*/
+    /*border-width:2px;*/
     position: absolute;
-    bottom: 150px;
-    left: 390px;
+    bottom: 0px;
+    left: 0px;
     height: 75px;
     width: 150px;
 }
 div.p1dealer {
-    /*border-style: solid;
-    border-width:2px;*/
+    /*border-style: solid;*/
+    /*border-width:2px;*/
     position: absolute;
-    top: 325px;
-    left: 220px;
-    height: 75px;
-    width: 150px;
-}
-div.p2dealer {
-    /*border-style: solid;
-    border-width:2px;*/
-    position: absolute;
-    top: 150px;
-    right: 390px;
-    height: 75px;
-    width: 150px;
-}
-div.p3dealer {
-    /*border-style: solid;
-    border-width:2px;*/
-    position: absolute;
-    bottom: 320px;
-    right: 220px;
+    top: 0px;
+    left: 0px;
     height: 75px;
     width: 150px;
 }
@@ -98,8 +137,8 @@ div.p0trick{
     /*border-style: solid;*/
     /*border-width:2px;*/
     position: absolute;
-    bottom: 0px;
-    left: 75px;
+    top: 0px;
+    left: 70px;
     height: 75px;
     width: 75px;
 }
@@ -107,26 +146,8 @@ div.p1trick{
     /*border-style: solid;*/
     /*border-width:2px;*/
     position: absolute;
-    bottom: 75px;
-    left: 0px;
-    height: 75px;
-    width: 75px;
-}
-div.p2trick{
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    top: 0px;
-    left: 75px;
-    height: 75px;
-    width: 75px;
-}
-div.p3trick{
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    bottom: 75px;
-    right: 0px;
+    bottom: 0px;
+    left: 70px;
     height: 75px;
     width: 75px;
 }

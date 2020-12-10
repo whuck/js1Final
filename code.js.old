@@ -168,6 +168,7 @@ var trumpCards = [];
 var _dealer = 0;
 var _handOver = false;
 var _currentPlayer = 1;
+var _allPass = false;
 function rankCards() {
     switch (trump) {
         case "c" : trumpCards = [{suit:"c",rank:9},{suit:"c",rank:10},{suit:"c",rank:12},{suit:"c",rank:13},{suit:"c",rank:14},{suit:"s",rank:11},{suit:"c",rank:11}]; break;
@@ -399,23 +400,56 @@ async function playHand() {
         dealCards(deck);
         //go around table see if anyone wants top card to be trump
         //await pickOrPass(dealer);
-    
-        if(await pickOrPass()) {
-            console.log(`${_trump} is trump`);
-            var a = $("#p"+_dealer+"dealer").html();
-            a += '&nbsp;Trump';
-            $("#p"+_dealer+"dealer").html(a);
-            $("#topCard").attr('src',`cards\\${topCard.suit}.png`);
-            await pickAndDiscard();
-        } else {
+
+        // if(await pickOrPass()) {
+        //     console.log(`${_trump} is trump`);
+        //     var a = $("#p"+_dealer+"dealer").html();
+        //     a += '&nbsp;Trump';
+        //     $("#p"+_dealer+"dealer").html(a);
+        //     $("#topCard").attr('src',`cards\\${topCard.suit}.png`);
+        //     await pickAndDiscard();
+        // } else {
+        //     hidePickPassBtns();
+        //     console.log("went around, time to pick a suit");
+        //     $("#topCard").attr('src',`cards\\d0.png`);
+        //     await pickSuit();
+        // }
+        //go around and see if each player wants to pick or pass
+        pickOrPass2();
+        //playTrick2();
+        if(_allPass) {
             hidePickPassBtns();
             console.log("went around, time to pick a suit");
             $("#topCard").attr('src',`cards\\d0.png`);
-            await pickSuit();
         }
-
-        //playTrick2();
+        else {
+            pickAndDiscard();
+        }
     //}
+}
+async function pickOrPass2() {
+    for (let i = 0; i < 4; i++) {
+        if(_currentPlayer===0) {
+            //player picks or passes
+            showPickPassBtns();
+            const userResponse = await waitUserInput();
+            if(userResponse ==="pick") {
+                pick();
+                return;
+            }
+        }
+        else if(countTrump() < 4){
+            //ai picks or passes
+            await timeout(1500);
+        }
+        else {
+            await timeout(1500);
+            pick();
+            return;
+        }
+        setNextPlayer();
+    }
+    _allPass = true;
 }
 function showPickSuitBtns() {
     $("#passBtn").click(function() {userClicked="pass";});
