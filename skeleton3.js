@@ -136,7 +136,8 @@ var _player0 ={
     dealerDiv: '#p0dealer',
     trickDiv: 'p0trick',
     clickables: [],
-    cardElements:[]
+    cardElements:[],
+    playableCards:[]
 
 };
 var _player1 ={
@@ -147,7 +148,8 @@ var _player1 ={
     dealerDiv: '#p1dealer',
     trickDiv: 'p1trick',
     cardElements: [],
-    clickables: []
+    clickables: [],
+    playableCards:[]
 };
 var _dealOrder = [
     []
@@ -199,6 +201,7 @@ function showPassBtn() {
 }
 function hidePassBtn() {
     //$("#passBtn").unbind('click');
+    console.log('asdf');
     $("#passBtn").hide();
 }
 function pass() {
@@ -253,30 +256,144 @@ function pick() {
         gameState = "play";
         playCard();
     } else if (gameState = "play") {
-        play();
-        cpuPlayCard();
+        play($(this));
+        cpuDecidePlayCard();
     }
 }
-function play() {
-    console.log("play");
-    var c = $(this);
-    var i = c.data('i');
-    var s = c.data('suit');
-    var r = c.data('rank');
-    playerCard.i = i;
-    playerCard.rank = r;
-    playerCard.suit = s;
-    console.log(playerCard);
+function play(clickedCard) {
 
+    console.log(clickedCard);
+
+    if(clickedCard.data('ontop')) {
+        var i = clickedCard.data('indexInPile');
+        var cardBelow = $(".0bottom"+i);
+
+        var temp = $("<img>").attr('src',cardBelow.data('src'));
+        $("#bottomPile0").detach(".0bottom"+i);
+        $("#topPile0").append(temp)
+
+        //var temp2 = {};
+        //temp2 =clickedCard;
+        //clickedCard.hide();
+        //console.log(cardBelow.data('src'));
+        cardBelow.hide();
+        //clickedCard.removeClass();
+        clickedCard.addClass("0trick0");
+        $("#trick0").append(clickedCard);
+        //console.log(cardBelow);
+    } else {
+        //card not on top of a card
+    }
+    //cpuPlayCard();
+    //$("#trick0").append(clickedCard);
+    console.log("clicked index in hand:"+clickedCard.data('indexInHand'));
+    var indexInHand = clickedCard.data('indexInHand');
+    console.log(_player0.hand);
+    //_player0.hand.splice(indexInHand,1,{});
+    _player0.hand[indexInHand] = undefined;
+    console.log(_player0.hand);
 }
+
 function playCard() {
     buildTrumpHelp();
     showMessage("Select a card to play");
     //enableClickyCards("play");
 }
-function cpuPlayCard() {
+function cpuDecidePlayCard() {
+    //was suit trump?
+    //play
+    var suitPlayed = $('.0trick0').data('suit');
+    var rankPlayed = $('.0trick0').data('rank');
+    if( suitPlayed === _trump) {
+        console.log('trump lead');
+        if(canIfollowSuit) {
+            if (canItakeThis(suitPlayed,rankPlayed)) {
+                //take with lowest
+                takeWithLowestSuit(suitPlayed,rankPlayed);
+            } else {
+                //play lowest trump
+            }
+        } else {
+            //play lowest non trump
+        }
+    }else {//non-trump
+        if(canIfollowSuit) {
+            //follow suit
+            if(canItakeThis) {
+                //take with lowest
+            } else {
+                //play lowest
+            }
+        } else {
+            if(canITrumpThis) {
+                //trump with lowest
+            } else {
+                //play lowest
+            }
+        }
+    }
+}
+function canIfollowSuit(suitPlayed) {
+    var playableCards = [];
+    //loop through players handssssssss...
+    //caveat here... if trump led, the two jacks are trump suit
+    //ie if diamonds was trump, and led, the jack of hearts is not a heart, its a diamond
+    var leftJackSuit = getLeftJackSuit();
+    playableCards = getPlayableCards(suitPlayed);
+    console.log(`suit played:${suitPlayed} cpu can play ${playableCards.length}`);
+    return playableCards.length > 0;
+}
+function getPlayableCards(suitPlayed) {
+    var playableCards = [];
+    var leftJackSuit = getLeftJackSuit();
+    for(var c of _player1.playableCards) {
+        if(c.suit === suitPlayed) playableCards.push(c);
+        else if (suitPlayed === _trump && c.suit === leftJackSuit && c.rank==11) playableCards.push(c);
+    }
+    return playableCards;
+}
+function getLeftJackSuit() {
+    return (_trump === "c") ? "s"
+            :(_trump === "s") ? "c"
+            :(_trump === "h") ? "d"
+            :(_trump === "d") ? "h" : "";
+}
+function canItakeThis(suitPlayed,rankPlayed) {
+    var rankToBeat = 0;
+    //find left jack suit
+    var leftJackSuit = getLeftJackSuit();
+    var playableCards = getPlayableCards(suitPlayed);
+    console.log("canItakeThis()left jack suit: "+leftJackSuit);
+    //is this card the right jack?
+    if (rankPlayed === 11 && suitPlayed ===_trump) {
+        //top trump I cannot take this trick
+        console.log('cpu cannot beat top jack');
+        return 0;
+    } else if (rankPlayed === 11 && suitPlayed === leftJackSuit) {
+        //2nd highest trump, do I have the highest?
+        for(var c of _player1.playableCards) {
+            if(c.suit === suitPlayed && c.rank ===11) {
+                console.log('cpu has top jack');
+                return 1;
+            }
+        }
+    } else if (suitPlayed === _trump){
+        //rest of the cards go in order =]
+        //dont have to worry about the two jacks messing up the easy rank comparison
+        for(var c in _player1.playableCards) {
+            console.log('cpu can take this');
+            if(c.suit === suitPlayed && c.rank > rankPlayed) return 1;
+        }
+    }
 
 }
+function takeWithLowestSuit(suitPlayed) {
+    for(var c of _player1.playableCards) {
+        if(c.suit===suitPlayed) playableCards.push(c);
+    }
+
+}
+
 function hideMessage() {
     $("#message").text("");
     $("#message").hide();
@@ -331,7 +448,15 @@ function deal(deck) {
             //make a card id for the <img> tag
             var cid = `${i}card${_players[i].hand.length-1}`;
             //make <img> for card
-            var card = $("<img>").attr('src', `cards\\d0.png`).attr('id',cid).data('suit',c.suit).data('rank',c.rank).data('i',_players[i].hand.length-1);
+            var card = $("<img>").attr('src', `cards\\d0.png`)
+                    .attr('id',cid)
+                    .data('suit',c.suit)
+                    .data('rank',c.rank)
+                    .data('indexInHand',_players[i].hand.length-1)
+                    .data('onbottom',true)
+                    .data('indexInPile',j)
+                .data('src',`cards\\${c.suit}${c.rank}.png`)
+                    .addClass(i+'bottom'+j);
             _players[i].cardElements.push(card);
             //append to player's bottom pile
             $("#bottomPile"+i).append(card);
@@ -345,10 +470,19 @@ function deal(deck) {
             //make a card id for the <img> tag
             var cid = `${i}card${_players[i].hand.length-1}`;
             //make <img> for card
-            var card = $("<img>").attr('src', `${c.img}`).attr('id',cid).data('suit',c.suit).data('rank',c.rank).data('i',_players[i].hand.length-1);
+            var card = $("<img>")
+                .attr('src', `${c.img}`)
+                .attr('id',cid)
+                .data('suit',c.suit)
+                .data('rank',c.rank)
+                .data('indexInHand',_players[i].hand.length-1)
+                .data('ontop',true)
+                .data('indexInPile',j)
+                .addClass(i+'top'+j);
             //append to player's bottom pile
             _players[i].cardElements.push(card);
             _players[i].clickables.push(card);
+            _players[i].playableCards.push(c);
             $("#topPile"+i).append(card);
         }
         //last 4 in hand
@@ -363,6 +497,7 @@ function deal(deck) {
             var card = $("<img>").attr('src', `${c.img}`).attr('id',cid).data('suit',c.suit).data('rank',c.rank).data('i',_players[i].hand.length-1)
             _players[i].cardElements.push(card);
             _players[i].clickables.push(card);
+            _players[i].playableCards.push(c);
             //append to player's bottom pile
             $("#hand"+i).append(card);
         }
