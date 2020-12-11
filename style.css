@@ -6,6 +6,7 @@ div.cardTable {
     border-style: solid;
     border-width:3px;
     position: fixed;
+    border-radius: 40px;
 }
 div.p0 {
     /*border-style: solid;*/
@@ -16,43 +17,8 @@ div.p0 {
     height: 340px;
     width: 220px;
 }
-#p0pile {
-    /*border-style: solid;*/
-    /*border-width:3px;*/
-    position: absolute;
-    top: 75px;
-    left: 0px;
-    height: 100px;
-    width: 230px;
-}
-#p0hand {
-    /*border-style: solid;*/
-    /*border-width:3px;*/
-    position: absolute;
-    top: 170px;
-    left: 0px;
-    height: 100px;
-    width: 230px;
-
-}
-#p1hand {
-
-    /*border-style: solid;*/
-    /*border-width:3px;*/
-    position: absolute;
-    bottom: 175px;
-    left: 0px;
-    height: 100px;
-    width: 230px;
-}
-#p1pile {
-    /*border-style: solid;*/
-    /*border-width:3px;*/
-    position: absolute;
-    bottom: 75px;
-    left: 0px;
-    height: 100px;
-    width: 230px;
+img.clicky:hover {
+    cursor: pointer;
 }
 div.p1 {
     /*border-style: solid;*/
@@ -63,111 +29,63 @@ div.p1 {
     height: 340px;
     width: 220px;
 }
+#message {
+    position:absolute;
+    bottom:5%;
+    left:35%;
+}
+.card {
+    display:inline-block;
+    height:70px;
+    width:50px;
+    border-radius: 15px;
+}
+.bottomPile0 {
+    position:absolute;
+
+}
+.topPile0 {
+    position:absolute;
+    top:-5px;
+    left:-5px;
+}
+.hand0 {
+    position:absolute;
+    top:120px;
+}
+.bottomPile1 {
+    position:absolute;
+    bottom:100px;
+}
+.topPile1 {
+    position: absolute;
+    bottom: 105px;
+    left:-5px;
+}
+.hand1 {
+    position: absolute;
+    top: 20px;
+}
 #passBtn {
     position: absolute;
     left: 35%;
     top: 70%;
 }
+.p0dealer {
+    position: absolute;
+    left:240px;
+}
+.p1dealer {
+    position: absolute;
+    left:240px;
+    bottom:100px;
+}
+.trumpHelp {
+    position:absolute;
+    width:100px;
+    height:100%;
+    top:10px;
+    left:10px;
+    border-width: 5px;
 
-.top {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    display:inline-block;
-    top:0px;
-    left:0px;
-    width:50px;
-    height:70px;
-    z-index:10;
-}
-.bottom {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    display:inline-block;
-    top:8px;
-    left:8px;
-    width:50px;
-    height:70px;
-}div.pile0 {
-     /*border-style: solid;*/
-     /*border-width:2px;*/
-     position: absolute;
-     display:inline-block;
-     top:0px;
-     left:0px;
-     width:50px;
-     height:70px;
- }
-div.pile1 {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    display:inline-block;
-    top:0px;
-    width:50px;
-    left:50px;
-    height:70px;
-}
-div.pile2 {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    display:inline-block;
-    top:0px;
-    width:50px;
-    left:100px;
-    height:70px;
-}
-div.pile3 {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    display:inline-block;
-    top:0px;
-    width:50px;
-    left:150px;
-    height:70px;
-}
-div.p0dealer {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    bottom: 175px;
-    left: 210px;
-    height: 75px;
-    width: 150px;
-}
-div.p1dealer {
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    top: 175px;
-    left: 210px;
-    height: 75px;
-    width: 150px;
-}
-.whosTurn {
-    border-style: solid;
-    border-width: medium;
-    border-radius: 20px;
-    border-color:green;
-}
-div.p0trick{
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    top: -10px;
-    left: 60px;
-    height: 75px;
-    width: 75px;
-}
-div.p1trick{
-    /*border-style: solid;*/
-    /*border-width:2px;*/
-    position: absolute;
-    bottom: 0px;
-    left: 60px;
-    height: 75px;
-    width: 75px;
 }
