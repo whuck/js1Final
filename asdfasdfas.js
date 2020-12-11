@@ -293,29 +293,18 @@ $(document).ready(function() {
     $("#PlayBtn").click(start);
     $("#hitBtn").click(hit);
     $("#stayBtn").click(stay);
-    $("#newGameBtn").click(reset);
+    $("#newGameBtn").click(start);
     $("#newGameBtn").hide();
 });
-function reset() {
+function start() {
+    //make new deck and shuffle it
     _playerHand.sum = 0;
     _dealerHand.sum = 0;
     _playerHand.cards = [];
     _dealerHand.card = [];
-    $("#playerCards").empty();
-    $("#dealerCards").empty();
+    $("#playerCards").remove();
+    $("#dealerCards").remove();
     $("#newGameBtn").hide();
-    $("#hitBtn").show();
-    $("#stayBtn").show();
-    $("#deck").empty();
-    $("#PlayBtn").show();
-    $("#message").hide();
-}
-function start() {
-    console.log('start');
-    //make new deck and shuffle it
-    $("#newGameBtn").hide();
-
-
     _deck = _gameDeck;
     shuffle(_deck);
     //hide the start button
@@ -341,7 +330,7 @@ function addCards() {
     for(var c of _playerHand.cards) {
         var pts = parseInt($(c).attr('rank'));
         if (pts === 11 && (_playerHand.sum != 10)) pts = 1;
-        _playerHand.sum += parseInt($(c).attr('rank'));
+        _playerHand.sum += c.rank;
     }
     if (_playerHand.sum >= 21) gameOver();
 }
@@ -376,8 +365,7 @@ function dealOneCard(who) {
         $("#dealerCards").append(c);
     } else if (who==="faceDown"){
         var src = `cards\\${_deckType}.png`;
-        c.attr('src',`${src}`)
-            .data('src',`${card.img}`);
+        c.attr('src',`${src}`);
         _dealerHand.cards.push(c);
         $("#dealerCards").append(c);
     }
@@ -390,9 +378,6 @@ function hit() {
 }
 //player stays, dealer decides how many hits it can take
 function stay() {
-    console.log('stay');
-    //console.log($(_dealerHand.cards[0]).data('src'));
-
     var hitThreshold = _easyMode?  17 : 16;
     while(_dealerHand.sum < hitThreshold) {
         hit();
@@ -400,23 +385,14 @@ function stay() {
     gameOver();
 }
 function gameOver() {
-    var turnOver = $(_dealerHand.cards[0]).data('src');
-    $(_dealerHand.cards[0]).attr('src',`${turnOver}`);
     var winner = "";
-    var playerBlackJack = (_playerHand.sum === 21 && _playerHand.cards.length === 2);
-    var dealerBlackJack = (_dealerHand.sum === 21 && _dealerHand.cards.length === 2);
+    var playerBlackJack = _playerHand.sum === 21 && _playerHand.cards.length === 2;
+    var dealerBlackJack = _dealerHand.sum === 21 && _dealerHand.cards.length === 2;
     if(_dealerHand.sum > 21) winner = _player + " Wins!";
     else if(_playerHand.sum > 21) winner = _dealer + " Wins!";
     else if(playerBlackJack && dealerBlackJack) winner = "Draw";
     else if(playerBlackJack) winner = _player + " BlackJack!";
     else if(dealerBlackJack) winner = _dealer + " BlackJack!";
-    else if(_dealerHand.sum > _playerHand.sum) winner = _dealer + " Wins!";
-    else if(_dealerHand.sum < _playerHand.sum) winner = _player + " Wins!";
     $("#newGameBtn").show();
-    $("#hitBtn").hide();
-    $("#stayBtn").hide();
-    $("#message").show();
-    console.log(winner);
-    $("#message").text(winner);
 
 }

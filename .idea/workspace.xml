@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="50559823-1b1f-4340-98df-c72a164f618f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/code.js" beforeDir="false" afterPath="$PROJECT_DIR$/code.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index2.html" beforeDir="false" afterPath="$PROJECT_DIR$/index2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index3.html" beforeDir="false" afterPath="$PROJECT_DIR$/index3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index2.html" beforeDir="false" afterPath="$PROJECT_DIR$/play.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index3.html" beforeDir="false" afterPath="$PROJECT_DIR$/settings.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +66,23 @@
       <workItem from="1607634298971" duration="31865000" />
       <workItem from="1607668117417" duration="355000" />
       <workItem from="1607668512987" duration="55000" />
-      <workItem from="1607668585146" duration="2017000" />
+      <workItem from="1607668585146" duration="10384000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="WindowStateProjectService">
     <state x="517" y="525" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1607568964851">
@@ -72,13 +93,17 @@
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="477" y="470" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.2560.1440@0.0.2560.1440" timestamp="1607483800242" />
+    <state x="1482" y="475" key="FileChooserDialogImpl" timestamp="1607670646045">
+      <screen x="0" y="0" width="2560" height="1440" />
+    </state>
+    <state x="1482" y="475" key="FileChooserDialogImpl/0.0.2560.1440@0.0.2560.1440" timestamp="1607670646045" />
     <state x="1409" y="276" width="585" height="888" key="find.popup" timestamp="1607643131407">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
     <state x="1409" y="276" width="585" height="888" key="find.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607643131407" />
-    <state x="1387" y="330" width="672" height="678" key="search.everywhere.popup" timestamp="1607651451329">
+    <state x="1387" y="330" width="672" height="678" key="search.everywhere.popup" timestamp="1607673194746">
       <screen x="0" y="0" width="2560" height="1440" />
     </state>
-    <state x="1387" y="330" width="672" height="678" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607651451329" />
+    <state x="1387" y="330" width="672" height="678" key="search.everywhere.popup/0.0.2560.1440@0.0.2560.1440" timestamp="1607673194746" />
   </component>
 </project>

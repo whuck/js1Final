@@ -1,3 +1,59 @@
 div{padding:1px;}
-img{border-radius: 10px;}
+img{border-radius: 11px;}
 img.clicky:hover {cursor: pointer;}
+.board {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background-color: #0a58ca;
+    border-radius: 50px;
+    left:50px;
+}
+button,#deck,#dealerCards,#playerCards,#message {
+    border-radius: 11px;
+    position: absolute;
+}
+#PlayBtn {
+    left:45%;
+    top:50%;
+    z-index: 10;
+}
+#hitBtn {
+    bottom:20px;
+    left:200px;
+}
+#stayBtn {
+    bottom:20px;
+    right:200px;
+}
+#newGameBtn {
+    border-radius: 11px;
+    position: absolute;
+    bottom:220px;
+    right:220px;
+}
+#deck {
+    width:75px;
+    height:100px;
+    top:10%;
+    left:35%;
+}
+#dealerCards,#playerCards {
+    width:250px;
+    height:100px;
+}
+#dealerCards {
+    top:35%;
+    left:40%;
+}
+#playerCards{
+    bottom: 20%;
+    left:40%;
+}
+#message {
+    height:20px;
+    left:200px;
+    bottom:20px;
+    font-weight: bolder;
+    font-size: large;
+}
