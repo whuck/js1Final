@@ -261,13 +261,13 @@ function pick() {
     }
 }
 function play(clickedCard) {
-
+    //TODO add bottomrow / hand clickin
     console.log(clickedCard);
 
     if(clickedCard.data('ontop')) {
         var i = clickedCard.data('indexInPile');
         var cardBelow = $(".0bottom"+i);
-
+        //TODO needs id
         var temp = $("<img>").attr('src',cardBelow.data('src'));
         $("#bottomPile0").detach(".0bottom"+i);
         $("#topPile0").append(temp)
@@ -304,51 +304,174 @@ function cpuDecidePlayCard() {
     //play
     var suitPlayed = $('.0trick0').data('suit');
     var rankPlayed = $('.0trick0').data('rank');
-    if( suitPlayed === _trump) {
+    var leftJackSuit = getLeftJackSuit();
+    var wasTrumpPlayed = (suitPlayed ===_trump) ? true : (suitPlayed===leftJackSuit && rankPlayed ===11) ? true : false;
+    console.log(`cpuDecidePlayCard() ${suitPlayed}${rankPlayed} was played was truMP? ${wasTrumpPlayed}`)
+    console.log(`player played the ${rankPlayed} of ${suitPlayed}`);
+    if(wasTrumpPlayed) {
         console.log('trump lead');
-        if(canIfollowSuit) {
+        if(canIfollowSuit(suitPlayed,rankPlayed)) {
+            console.log('cpu has to follow suit');
             if (canItakeThis(suitPlayed,rankPlayed)) {
+                console.log('cpu can take');
                 //take with lowest
                 takeWithLowestSuit(suitPlayed,rankPlayed);
             } else {
+                console.log('cpu can follow suit, but not take');
                 //play lowest trump
+                playLowest(suitPlayed,rankPlayed);
             }
         } else {
+            console.log('cpu cannot follow suit, and not take');
             //play lowest non trump
+            playLowestWhatever(suitPlayed,rankPlayed);
         }
     }else {//non-trump
-        if(canIfollowSuit) {
+        if(canIfollowSuit(suitPlayed,rankPlayed)) {
+            console.log('cpu can follow suit');
             //follow suit
             if(canItakeThis) {
+                console.log('cpu can follow suit, and take w/o trumping');
                 //take with lowest
+                takeWithLowestSuit(suitPlayed,rankPlayed);
             } else {
+                console.log('cpu can follow suit, but cannot take');
                 //play lowest
+                playLowest(suitPlayed,rankPlayed);
             }
         } else {
+            console.log('cpu cannot follow suit');
             if(canITrumpThis) {
+                console.log('cpu cannot follow suit, but can trump this');
                 //trump with lowest
+                takeWithLowestTrump(suitPlayed,rankPlayed);
             } else {
+                console.log('cpu cannot follow suit, and cannot trump this :(');
                 //play lowest
+                playLowestWhatever(suitPlayed,rankPlayed);
             }
         }
     }
 }
-function canIfollowSuit(suitPlayed) {
+function canITrumpThis() {
+    var playableCards = [];
+    playableCards = getPlayableCards(_trump,rankPlayed);
+    console.log('canitrumpThis'+(playableCards.length > 0));
+    return playableCards.length > 0;
+
+}
+function playLowestWhatever() {
+    var playableCards = [];
+    playableCards = getPlayableCards("",rankPlayed);
+    var toPlay = playableCards[0];
+    for(var c =0; c < playableCards.length-1; c++) {
+        if (toPlay.rank < playableCards[(c+1)].rank) toPlay = c;
+    }
+    console.log('cpu takewith lowest trump : '+toPlay.suit+toPlay.rank);
+    cpuPlayCard(toPlay);
+}
+function takeWithLowestTrump() {
+    var playableCards = [];
+    playableCards = getPlayableCards(_trump,rankPlayed);
+    var toPlay = playableCards[0];
+    for(var c =0; c < playableCards.length-1; c++) {
+        if (toPlay.rank < playableCards[(c+1)].rank) toPlay = c;
+    }
+    console.log('cpu takewith lowest trump : '+toPlay.suit+toPlay.rank);
+    cpuPlayCard(toPlay);
+}
+function playLowest(suitPlayed,rankPlayed) {
+    var playableCards = [];
+    playableCards = getPlayableCards(suitPlayed,rankPlayed);
+    var toPlay = playableCards[0];
+    for(var c =0; c < playableCards.length-1; c++) {
+        if (toPlay.rank < playableCards[(c+1)].rank) toPlay = c;
+    }
+    console.log('cpu playing'+toPlay.toString());
+    cpuPlayCard(toPlay);
+}
+function cpuPlayCard(clickedCard) {
+    console.log('cpuPlayCard() '+clickedCard.suit+clickedCard.rank);
+    console.log(clickedCard);
+    clickedCard = $(clickedCard);
+    if(clickedCard.data('ontop')) {
+        var i = clickedCard.data('indexInPile');
+        var cardBelow = $(".0bottom"+i);
+
+        var temp = $("<img>").attr('src',cardBelow.data('src'));
+        $("#bottomPile1").detach(".1bottom"+i);
+        $("#topPile1").append(temp)
+
+        //var temp2 = {};
+        //temp2 =clickedCard;
+        //clickedCard.hide();
+        //console.log(cardBelow.data('src'));
+        cardBelow.hide();
+        //clickedCard.removeClass();
+        clickedCard.addClass("1trick1");
+        $("#trick1").append(clickedCard);
+        //console.log(cardBelow);
+    } else {
+        //card not on top of a card
+        console.log('not on pile');
+        var i = clickedCard.data('indexInPile');
+        var cardBelow = $(".0bottom"+i);
+
+        var temp = $("<img>").attr('src',cardBelow.data('src'));
+        $("#bottomPile1").detach(".1bottom"+i);
+        $("#topPile1").append(temp)
+
+        //var temp2 = {};
+        //temp2 =clickedCard;
+        //clickedCard.hide();
+        //console.log(cardBelow.data('src'));
+        cardBelow.hide();
+        //clickedCard.removeClass();
+        clickedCard.addClass("1trick1");
+        $("#trick1").append(clickedCard);
+    }
+    //cpuPlayCard();
+    //$("#trick0").append(clickedCard);
+    //console.log("clicked index in hand:"+clickedCard.data('indexInHand'));
+    var indexInHand = clickedCard.data('indexInHand');
+    //console.log(_player1.hand);
+    //_player0.hand.splice(indexInHand,1,{});
+    _player1.hand[indexInHand] = undefined;
+    //console.log(_player0.hand);
+}
+function canIfollowSuit(suitPlayed,rankPlayed) {
     var playableCards = [];
     //loop through players handssssssss...
     //caveat here... if trump led, the two jacks are trump suit
     //ie if diamonds was trump, and led, the jack of hearts is not a heart, its a diamond
     var leftJackSuit = getLeftJackSuit();
-    playableCards = getPlayableCards(suitPlayed);
-    console.log(`suit played:${suitPlayed} cpu can play ${playableCards.length}`);
+    playableCards = getPlayableCards(suitPlayed,rankPlayed);
+    //console.log(`suit played:${suitPlayed} cpu can play ${playableCards.length}`);
     return playableCards.length > 0;
 }
-function getPlayableCards(suitPlayed) {
+function getPlayableCards(suitPlayed,rankPlayed) {
+    console.log('getPlayableCards('+suitPlayed+')');
     var playableCards = [];
     var leftJackSuit = getLeftJackSuit();
+    var leftJackPlayed = (suitPlayed === leftJackSuit && rankPlayed ===11);
     for(var c of _player1.playableCards) {
-        if(c.suit === suitPlayed) playableCards.push(c);
-        else if (suitPlayed === _trump && c.suit === leftJackSuit && c.rank==11) playableCards.push(c);
+        //if trump was played
+        if(suitPlayed === _trump || leftJackPlayed ) {
+            //if player has trump
+            if(c.suit === _trump || (c.suit===leftJackSuit && c.rank ===11)) {
+                playableCards.push(c);
+            }
+        } else {// else ezpz suit match
+            if (c.suit === suitPlayed) {
+                playableCards.push(c);
+            }else {//playing whatever that isn't trump
+                if(c.suit != _trump) {
+                    playableCards.push(c);
+                }
+            }
+        }
+        // if(c.suit === suitPlayed && suitPlayed != _trump) playableCards.push(c);
+        // else if (suitPlayed === _trump && c.suit === leftJackSuit && c.rank==11) playableCards.push(c);
     }
     return playableCards;
 }
@@ -363,14 +486,14 @@ function canItakeThis(suitPlayed,rankPlayed) {
     //find left jack suit
     var leftJackSuit = getLeftJackSuit();
     var playableCards = getPlayableCards(suitPlayed);
-    console.log("canItakeThis()left jack suit: "+leftJackSuit);
+    console.log("canItakeThis("+suitPlayed+rankPlayed+")left jack suit: "+leftJackSuit);
     //is this card the right jack?
     if (rankPlayed === 11 && suitPlayed ===_trump) {
         //top trump I cannot take this trick
         console.log('cpu cannot beat top jack');
         return 0;
     } else if (rankPlayed === 11 && suitPlayed === leftJackSuit) {
-        //2nd highest trump, do I have the highest?
+        //2nd highest trump was played, do I have the highest?
         for(var c of _player1.playableCards) {
             if(c.suit === suitPlayed && c.rank ===11) {
                 console.log('cpu has top jack');
@@ -380,17 +503,51 @@ function canItakeThis(suitPlayed,rankPlayed) {
     } else if (suitPlayed === _trump){
         //rest of the cards go in order =]
         //dont have to worry about the two jacks messing up the easy rank comparison
-        for(var c in _player1.playableCards) {
-            console.log('cpu can take this');
-            if(c.suit === suitPlayed && c.rank > rankPlayed) return 1;
+        //so i already checked if the two jacks were played, now two quick checks if the cpu
+        //has the 2 trump jacks
+        for(var c of _player1.playableCards) {
+            //console.log('cpu can take this');
+            //console.log(`${c.suit}+${c.rank}`);
+
+            if((c.suit === _trump && c.rank == 11) || (c.suit === leftJackSuit && c.rank == 11)) return 1;
+            else if(c.suit === suitPlayed && c.rank > rankPlayed) return 1;
         }
+    }//else not trump
+    else{
+        console.log('not trump, dont care');
     }
 
 }
-function takeWithLowestSuit(suitPlayed) {
-    for(var c of _player1.playableCards) {
-        if(c.suit===suitPlayed) playableCards.push(c);
+
+function takeWithLowestSuit(suitPlayed,rankPlayed) {
+    console.log('cpu taking with lowest');
+    var leftJackSuit = getLeftJackSuit();
+    var playableCards = getPlayableCards(suitPlayed);
+
+    //function assumes cpu has a card that can take trick
+    //just have to find the lowest rank card to take it with
+    //ez check first, if the left jack was played, have to take it with the right
+    if(suitPlayed===leftJackSuit && rankPlayed===11) {
+        //find right jack in cpus hand
+        for(var c of playableCards) {
+            if (c.suit===_trump && c.rank===11) {
+                console.log('cpu playing right jack to beat left jack');
+                cpuPlayCard(c);
+            }
+        }
+    } else {
+        //var playableCards = [];
+        //playableCards = getPlayableCards(suitPlayed,rankPlayed);
+        var toPlay = playableCards[0];
+        //first find highest card in hand
+        for(var c =0; c < playableCards.length-1; c++) {
+            if (toPlay.rank > playableCards[(c+1)].rank) toPlay = playableCards[c];
+        }
+
+        console.log('cpu playing'+toPlay.suit+toPlay.rank);
+        cpuPlayCard(toPlay);
     }
+
 
 }
 
