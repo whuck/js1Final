@@ -295,6 +295,13 @@ $(document).ready(function() {
     $("#stayBtn").click(stay);
     $("#newGameBtn").click(reset);
     $("#newGameBtn").hide();
+    var loadedSettings = JSON.parse(localStorage.getItem("settings"));
+    if(loadedSettings != null) {
+        //if there are settings load them
+        _player = loadedSettings._playerName;
+        _dealer = loadedSettings._dealerName;
+        _easyMode = loadedSettings._easyMode;
+    }
 });
 function reset() {
     _playerHand.sum = 0;
@@ -400,8 +407,10 @@ function stay() {
     gameOver();
 }
 function gameOver() {
-    var turnOver = $(_dealerHand.cards[0]).data('src');
-    $(_dealerHand.cards[0]).attr('src',`${turnOver}`);
+    if(!_easyMode) {
+        turnOver = $(_dealerHand.cards[0]).data('src');
+        $(_dealerHand.cards[0]).attr('src', `${turnOver}`);
+    }
     var winner = "";
     var playerBlackJack = (_playerHand.sum === 21 && _playerHand.cards.length === 2);
     var dealerBlackJack = (_dealerHand.sum === 21 && _dealerHand.cards.length === 2);

@@ -15,7 +15,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <!--<script src="code.js"></script>-->
-<script src="code.js"></script>
+<script src="settings.js"></script>
 
 <div class="container">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -30,6 +30,23 @@
         </li>
     </ul>
 </div>
-
+<form action="play.html" method="get">
+    <div class="form-group">
+        <label for="dif">Difficulty</label>
+        <select id="dif" name="dif" class="form-control">
+            <option value="0">Normal</option>
+            <option value="1">EZ</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="pname">Player Name</label>
+        <input type="text" id="pname" name="pname" value="Player" class="form-control">
+    </div>
+    <div class="form-group">
+        <label for="dname">Dealer Name</label>
+        <input type="text" id="dname" name="dname" value="Dealer" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Save Changes And Play</button>
+</form>
 </body>
 </html>
